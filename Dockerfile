@@ -1,21 +1,3 @@
-# FROM node:16 AS build
-
-# WORKDIR /app
-
-# COPY ["package.json", "package-lock.json", "./"]
-
-# RUN npm install
-
-# COPY . .
-
-# RUN npm run build
-
-# EXPOSE 8005
-
-# # Start the Node.js application (replace with your actual start command)
-# CMD ["npm", "start"]
-
-
 # Stage 2: Create the final image with Nginx
 FROM nginx:latest
 
