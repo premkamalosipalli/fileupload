@@ -1,0 +1,30 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: node:16
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - run:
+          name: Build React App
+          command: npm run build
+
+  publish_docker:
+    docker:
+      - image: docker:19.03.12
+    steps:
+      - setup_remote_docker:
+          version: 19.03.12
+      - run:
+          name: Build Docker Image
+          command: |
+            docker build -t fileUpload .
+      - run:
+          name: Publish Docker Image
+          command: |
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            docker tag fileUpload "$DOCKER_USERNAME/fileUpload:latest"
+            docker push "$DOCKER_USERNAME/fileUpload:latest"
