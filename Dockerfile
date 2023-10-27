@@ -19,9 +19,11 @@
 # Stage 2: Create the final image with Nginx
 FROM nginx:latest
 
+WORKDIR /app
+
 # Copy the build output from the first stage into the Nginx image
 # COPY --from=build ./app/dist /etc/nginx/html
-COPY dist /etc/nginx/html
+COPY ./dist /etc/nginx/html
 
 # Copy your custom nginx.config if needed
 COPY nginx.conf /etc/nginx/nginx.conf
