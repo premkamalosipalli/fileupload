@@ -19,15 +19,13 @@ jobs:
       - run:
           name: Deploy Docker Image
           command: |
-#            docker run -d -p 8000:8000 --name react-docker-container react-docker
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
             docker push "$DOCKER_USERNAME/fileupload:latest"
 
 workflows:
-  version: 2
-  build-and-deploy:
+  build_and_deploy:
     jobs:
-      - build
-      - deploy:
-          requires:
-            - build
+      - build_and_deploy:
+          filters:
+            branches:
+              only: master
