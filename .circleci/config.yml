@@ -17,7 +17,7 @@ jobs:
       - run:
           name: Build Docker Image
           command: |
-            docker build -t fileupload:latest .
+            docker build -t $DOCKER_USERNAME/fileupload:latest .
 
       - run:
           name: Deploy Docker Image
