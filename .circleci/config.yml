@@ -4,10 +4,8 @@ jobs:
   build:
     docker:
       - image: circleci/node:16
-    working_directory: /home/circleci/file/upload
     steps:
-      - checkout:
-          path: /home/circleci/file/upload
+      - checkout
       - run:
           name: Install Dependencies
           command: npm install
@@ -24,10 +22,9 @@ jobs:
       - run:
           name: Build and Publish Docker Image
           command: |
-            docker build -t fileupload .
+            docker build -t "DOCKER_USERNAME/fileupload:latest" .
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker tag fileupload "$DOCKER_USERNAME/fileupload:latest"
-            docker push "$DOCKER_USERNAME/fileupload:latest"
+            docker push "DOCKER_USERNAME/fileupload:latest"
 
 workflows:
   version: 2
