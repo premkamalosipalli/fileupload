@@ -1,23 +1,33 @@
-# Use an official Node.js runtime as a parent image
-FROM node:16
+# FROM node:16 AS build
 
-# Set the working directory in the container
-WORKDIR /app
+# WORKDIR /app
 
-# Copy package.json and package-lock.json to the container
-COPY package*.json ./
+# COPY ["package.json", "package-lock.json", "./"]
 
-# Install app dependencies
-RUN npm install
+# RUN npm install
 
-# Copy the rest of your application's source code to the container
-COPY . .
+# COPY . .
 
-# Build your React app
-RUN npm run build
+# RUN npm run build
 
-# Expose the port your app will run on
+# EXPOSE 8005
+
+# # Start the Node.js application (replace with your actual start command)
+# CMD ["npm", "start"]
+
+
+# Stage 2: Create the final image with Nginx
+FROM nginx:latest
+
+# Copy the build output from the first stage into the Nginx image
+# COPY --from=build ./app/dist /etc/nginx/html
+COPY ./dist /etc/nginx/html
+
+# Copy your custom nginx.config if needed
+COPY nginx.config /etc/nginx/nginx.conf
+
+# Expose port 80 to serve the application
 EXPOSE 8000
 
-# Define the command to run your app
-CMD ["npm", "start"]
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]

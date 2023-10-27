@@ -23,13 +23,13 @@ jobs:
       - run:
           name: Build Docker Image
           command: |
-            docker build -t fileupload:latest .
+            docker build -t file-upload:latest .
 
       - run:
           name: Deploy Docker Image
           command: |
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker push "$DOCKER_USERNAME/fileupload:latest"
+            docker push "$DOCKER_USERNAME/file-upload:latest"
 
 workflows:
   version: 2
