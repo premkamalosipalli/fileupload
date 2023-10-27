@@ -23,7 +23,7 @@ jobs:
       - run:
           name: Build Docker Image
           command: |
-            docker build -t fileupload:latest .
+            docker build -t fileupload:latest -f Dockerfile --no-cache .
 
       - run:
           name: Deploy Docker Image
