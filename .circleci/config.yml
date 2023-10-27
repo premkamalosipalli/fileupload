@@ -4,8 +4,10 @@ jobs:
   build:
     docker:
       - image: circleci/node:16
+    working_directory: /home/circleci/file/upload
     steps:
-      - checkout
+      - checkout:
+          path: /home/circleci/file/upload
       - run:
           name: Install Dependencies
           command: npm install
