@@ -1,8 +1,9 @@
 version: 2.1
+
 jobs:
   build:
     docker:
-      - image: node:16
+      - image: circleci/node:14
     steps:
       - checkout
       - run:
@@ -11,19 +12,17 @@ jobs:
       - run:
           name: Build React App
           command: npm run build
-  publish_docker:
+
+  deploy:
     docker:
       - image: docker:19.03.12
     steps:
       - setup_remote_docker:
           version: 19.03.12
       - run:
-          name: Build Docker Image
+          name: Build and Publish Docker Image
           command: |
-            docker build -t fileUpload .
-      - run:
-          name: Publish Docker Image
-          command: |
+            docker build -t your-image-name .
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker tag fileUpload "$DOCKER_USERNAME/fileUpload:latest"
-            docker push "$DOCKER_USERNAME/fileUpload:latest"
+            docker tag your-image-name "$DOCKER_USERNAME/your-image-name:latest"
+            docker push "$DOCKER_USERNAME/your-image-name:latest"
