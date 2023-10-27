@@ -1,29 +1,33 @@
-# Use an official Node.js image for building the React app
-FROM node:16 as builder
+# FROM node:16 AS build
 
-# Set the working directory
-WORKDIR /app
+# WORKDIR /app
 
-# Copy package.json and package-lock.json to the container
-COPY package*.json ./
+# COPY ["package.json", "package-lock.json", "./"]
 
-# Install app dependencies
-RUN npm install
+# RUN npm install
 
-# Copy the rest of your application's source code to the container
-COPY . .
+# COPY . .
 
-# Build your React app
-RUN npm run build
+# RUN npm run build
 
-# Use an official NGINX image as the final image
+# EXPOSE 8005
+
+# # Start the Node.js application (replace with your actual start command)
+# CMD ["npm", "start"]
+
+
+# Stage 2: Create the final image with Nginx
 FROM nginx:latest
 
-# Remove the default NGINX index file
-RUN rm /usr/share/nginx/html/index.html
+# Copy the build output from the first stage into the Nginx image
+# COPY --from=build ./app/dist /etc/nginx/html
+COPY ./dist /etc/nginx/html
 
-# Copy the built React app from the previous build stage
-COPY --from=builder /app/build /usr/share/nginx/html
+# Copy your custom nginx.config if needed
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# Expose port 80 for NGINX
+# Expose port 80 to serve the application
 EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
