@@ -24,7 +24,7 @@ FROM nginx:latest
 COPY ./dist /etc/nginx/html
 
 # Copy your custom nginx.config if needed
-COPY nginx.config /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Expose port 80 to serve the application
 EXPOSE 80
