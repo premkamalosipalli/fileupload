@@ -24,7 +24,7 @@ jobs:
           command: |
             docker build -t your-image-name .
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker tag fileupload "$DOCKER_USERNAME/your-image-name:latest"
+            docker tag fileupload "$DOCKER_USERNAME/fileupload:latest"
             docker push "$DOCKER_USERNAME/fileupload:latest"
 
 workflows:
