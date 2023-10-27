@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Deploy Docker Image
           command: |
-            docker run -d -p 0.0.0.0:8000:8000 --name fileupload-container fileupload
+            docker run -d -p 127.0.0.1:8000:8000 --name fileupload-container fileupload
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
             docker tag fileupload "$DOCKER_USERNAME/fileupload:latest"
             docker push "$DOCKER_USERNAME/fileupload:latest"
