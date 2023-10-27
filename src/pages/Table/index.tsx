@@ -139,7 +139,6 @@ const TableList: React.FC<unknown> = () => {
     },
   ];
 
-  // @ts-ignore
   return (
     <PageContainer
       header={{
