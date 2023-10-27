@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Build and Publish Docker Image
           command: |
-            docker build -t your-image-name .
+            docker build -t fileupload .
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
             docker tag fileupload "$DOCKER_USERNAME/fileupload:latest"
             docker push "$DOCKER_USERNAME/fileupload:latest"
