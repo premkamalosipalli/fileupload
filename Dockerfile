@@ -21,13 +21,13 @@ FROM nginx:latest
 
 # Copy the build output from the first stage into the Nginx image
 # COPY --from=build ./app/dist /etc/nginx/html
-COPY ./dist /etc/nginx/html
+COPY dist /etc/nginx/html
 
 # Copy your custom nginx.config if needed
 COPY nginx.config /etc/nginx/nginx.conf
 
 # Expose port 80 to serve the application
-EXPOSE 8000
+EXPOSE 80
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
