@@ -24,7 +24,7 @@ jobs:
           command: |
             docker run -d -p 0.0.0.0:8000:8000 --name fileupload-container fileupload
             echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-            docker tag fileupload:latest "$DOCKER_USERNAME/fileupload:latest"
+            docker tag fileupload "$DOCKER_USERNAME/fileupload:latest"
             docker push "$DOCKER_USERNAME/fileupload:latest"
 
 workflows:
