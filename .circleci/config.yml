@@ -11,6 +11,7 @@ jobs:
           path: /home/circleci/verity/web
       - setup_remote_docker:
           version: 19.03.12
+      - run: npm cache clean --force
       - run: npm install
       - run: npm run build
 
