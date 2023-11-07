@@ -1,31 +1,53 @@
 import { userLoginService } from '@/services/loginService/loginService';
-import { Button, Checkbox, Form, Input, Layout, Row, Typography } from 'antd';
-import React from 'react';
-import styles from './Guide.less';
+import {
+  Button,
+  Checkbox,
+  Divider,
+  Form,
+  Input,
+  Layout,
+  message,
+  Row,
+  Space,
+  Tabs,
+  theme,
+  Typography,
+} from 'antd';
+import React, { CSSProperties, useState } from 'react';
+import styles from './index.less';
+import { history } from '@umijs/max';
 
 interface Props {
   name: string;
 }
 
 type FieldType = {
-  username?: string;
+  email?: string;
   password?: string;
   remember?: string;
 };
 const onFinish = async (values: API.UserLoginBodyDataType) => {
-  const loginResponse = await userLoginService(values);
+  const response = await userLoginService(values);
 
-  console.log(loginResponse);
+  console.log(response);
+
+  if (response.email !== null) {
+    history.push(`/fileUpload`);
+  } else {
+    history.push(`/register`);
+  }
+  console.log('response');
 };
 
 const onFinishFailed = (errorInfo: any) => {
   console.log('Failed:', errorInfo);
 };
 
-// 脚手架示例组件
-const Guide: React.FC<Props> = (props) => {
+type LoginType = 'phone' | 'account';
+const Login: React.FC<Props> = (props) => {
   const { name } = props;
 
+  let loginType;
   return (
     <Layout>
       <Row>
@@ -44,10 +66,11 @@ const Guide: React.FC<Props> = (props) => {
               autoComplete="off"
             >
               <Form.Item<FieldType>
-                label="Username"
-                name="username"
+                label="Email" // Change "Username" to "Email"
+                name="email"
+                className={styles.header}
                 rules={[
-                  { required: true, message: 'Please input your username!' },
+                  { required: true, message: 'Please input your email!' }, // Update the message as well
                 ]}
               >
                 <Input />
@@ -84,4 +107,4 @@ const Guide: React.FC<Props> = (props) => {
   );
 };
 
-export default Guide;
+export default Login;

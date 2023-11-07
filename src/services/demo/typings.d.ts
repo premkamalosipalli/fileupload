@@ -67,8 +67,22 @@ declare namespace API {
   type definitions_0 = null;
 
   type UserLoginBodyDataType = {
-    username?: string;
+    email?: string;
     password?: string;
-    rememberMe?: boolean;
+    remember?: boolean;
+  };
+
+  type UserRegisterBodyDataType = {
+    firstName?: string;
+    email?: string;
+    lastName?: string;
+    password?: string;
+  };
+
+  type UserResponseDataType = {
+    success?: true;
+    message?: string;
+    code?: string;
+    data?: UserLoginBodyDataType;
   };
 }
