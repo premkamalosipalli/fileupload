@@ -1,4 +1,6 @@
+// @ts-ignore
 import { request } from '@umijs/max';
+// @ts-ignore
 import API from '../demo/typings.d.ts';
 
 // Define the base URL for your backend API

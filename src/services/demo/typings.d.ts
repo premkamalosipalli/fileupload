@@ -67,6 +67,7 @@ declare namespace API {
   type definitions_0 = null;
 
   type UserLoginBodyDataType = {
+    id?: number;
     email?: string;
     password?: string;
     remember?: boolean;
@@ -84,5 +85,17 @@ declare namespace API {
     message?: string;
     code?: string;
     data?: UserLoginBodyDataType;
+  };
+
+  type FileUploadFormData = {
+    file: File; // Assuming you're using the File type for the uploaded file
+    userId: string; // Use the appropriate type for the user ID
+  };
+
+  type FileUploadStatus = {
+    success?: true;
+    message?: string;
+    code?: string;
+    data?: FileUploadFormData;
   };
 }

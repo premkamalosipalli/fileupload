@@ -16,6 +16,7 @@ import {
 import React, { CSSProperties, useState } from 'react';
 import styles from './index.less';
 import { history } from '@umijs/max';
+import { setQueryParams } from '@/utils/format';
 
 interface Props {
   name: string;
@@ -32,11 +33,11 @@ const onFinish = async (values: API.UserLoginBodyDataType) => {
   console.log(response);
 
   if (response.email !== null) {
-    history.push(`/fileUpload`);
+    history.push(`/fileUpload?userId=${response.id}`);
   } else {
     history.push(`/register`);
   }
-  console.log('response');
+  console.log(response.id);
 };
 
 const onFinishFailed = (errorInfo: any) => {
